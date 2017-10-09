@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)http://lx.goodym.cn/account/login.html -->
+<html class="ext-strict js cssanimations"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		
+		<title>任务管理系统-HCI</title>
+		
+		
+		<link rel="stylesheet" href="./css/app.css">
+		
+		<link href="./css/login.css" rel="stylesheet" type="text/css">
+		
+		<style type="text/css">
+			
+			body {
+				 background: #f4f4f4 url(./css/bg.gif) repeat top left;
+			}
+			
+			a,a:hover{
+				color:white;
+			}
+			
+			.userimgf {
+				display:block;
+				width: 30px;
+				height: 43px;
+				float: left;
+				background: white;
+				padding-top: 5px;
+				margin-left: 5px;
+				box-sizing: border-box;
+				text-align: center;
+			}
+			.lgInput{
+				float: left;
+				width: 85% !important;
+				border-radius: 0 !important;
+				font-size: 14px !important;
+				outline: none !important;
+			}
+			.ff{
+				background: #ccc;
+				width: 280px;
+				height: 43px;
+				border-radius: 6px;
+				overflow: hidden;
+			}
+			.kuan1{
+				width: 280px;
+			}
+			.myapp-login{
+				margin-top:-50px;
+			}
+			.zhuce_body{
+				margin-top:700px;
+			}
+			#input_code{
+				width:80px;
+				margin-left:10px;
+				margin-top:-20px;
+			}
+			#fresh_code{
+				cursor:pointer;
+				color:blue;
+			}
+			#scode{
+				margin-top:10px;
+			}
+		</style>
+	</head>
+
+	<body  data-type="login" class="ext-webkit ext-chrome">
+
+		<div class="am-g myapp-login">
+			<div class="myapp-login-logo-block  tpl-login-max">
+				<div class="myapp-login-logo-text">
+					<div class="myapp-login-logo-text">
+						<span>任务 管理系统</span> 
+					</div>
+					
+				</div>
+			</div>
+		</div>
+
+				
+				
+				
+				<div class="zhuce_body">
+	
+				<div class="zhuce_kong">
+    	<div class="zc">
+        	<div class="bj_bai">
+            <h3>欢迎注册</h3>
+       	  	  <form id="submitForm">
+                <input id="name" name="name" type="text" class="kuang_txt" placeholder="昵称">
+                <label id="repeat_name" style="color:red;"></label>
+				<input id="password" name="password" type="password" class="kuang_txt" placeholder="密码">
+				<input id="repeat_password" name="repeat_password" type="password" class="kuang_txt" placeholder="确认密码">
+                <input id="college" name="college" type="text" class="kuang_txt" placeholder="学院">
+                <input id="subject" name="subject" type="text" class="kuang_txt" placeholder="专业">
+                <input id="num" name="num" type="text" class="kuang_txt" placeholder="学号">
+				<input id="grade" name="grade" type="text" class="kuang_txt" placeholder="年级班级">
+				<input id="email" name="email" type="text" class="kuang_txt" placeholder="邮箱">
+				<img alt="验证码" id="scode" src="./getCode.action" ><label onclick="javascript:flushCode();" id="fresh_code">看不清</label><input name="code" id="input_code" type="text" class="kuang_txt" placeholder="输入验证码">
+				
+                
+                <input id="login-button" name="注册" class="btn_zhuce" value="注册">
+                
+                </form>
+            </div>
+        
+        </div>
+    </div>
+
+</div>
+				
+				
+		
+				
+				
+				
+				
+				
+			
+		
+  <script type="text/javascript" src="./js/jquery.min.js"></script>
+  
+  <script>
+  	function flushCode() {
+    // 每次刷新的时候获取当前时间，防止浏览器缓存刷新失败
+    var time = new Date();
+    document.getElementById("scode").src = "./getCode.action?time=" + time;
+	}
+  </script>
+  
+  
+  <script type="text/javascript">
+  
+  function tjform(){
+	  var name = $("#name").val();
+      var password = $("#password").val();
+      var repeat_password = $("#repeat_password").val();
+
+      if (name == "") {
+          alert("帐号不能为空");
+          return false;
+      }
+
+      if (password == "") {
+          alert("密码不能为空");
+          return false;
+      }
+      
+      if (repeat_password == "") {
+      	  alert("重复密码不能为空");
+          return false;
+      }
+      
+      if (repeat_password != password) {
+      	  alert("两次密码不一致");
+      	  return false;
+      }
+      
+      var code = $("#input_code").val();
+      var flag = true;
+      
+      $.ajax({ url: "./testCode.action?code=" + code , success: function(data){
+        
+        if (data == "code_error") {
+        
+        	alert("验证码错误");
+        	flag = false;
+        	
+        } else {
+        	
+      		$.ajax({ url: "./testName.action?name=" + name , success: function(data){
+      			
+      			if(data == "error") {
+      				alert("该用户名已存在！");
+      				flag = false;
+      			} else {
+      			
+      				$.post(
+						"./register.action",
+						$("#submitForm").serialize(),
+						function(data){	
+							alert("注册成功！");
+							window.location.href='./';
+					});
+					
+      			}
+      			
+        	}});
+        	
+        }
+        
+      }});
+      
+      if(flag == false) {
+      	return false;
+      }
+      
+ 
+  }
+  
+  $('#login-button').click(function() {
+       if(tjform() == true) {
+       }
+  });
+        
+        </script>
+	
+
+</body></html>

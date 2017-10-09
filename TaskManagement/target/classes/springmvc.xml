@@ -1,0 +1,35 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.0.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/task
+   		http://www.springframework.org/schema/task/spring-task-4.0.xsd">
+   		
+
+	<!-- 配置扫描器 -->
+		<context:component-scan base-package="com.hci.controller"/>
+	<!-- 配置处理器映射器  适配器 -->
+		<mvc:annotation-driven/>
+	<!--配置视图解析器 
+			要求将jstl的包加到classpath 
+			prefix:代表请求url的前缀 
+			suffix:代表请求url的后缀 
+			设置了这两个属性值后我们在Controller中进行代码开发时返回的modelandview对象设置的页面路径值就不用带前缀名和后缀名了 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+
+</beans>

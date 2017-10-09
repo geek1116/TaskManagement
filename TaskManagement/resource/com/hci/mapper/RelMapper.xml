@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hci.mapper.RelMapper">
+
+	<delete id="deleteById" parameterType="_int">
+		DELETE FROM Rel where tid=#{id}
+	</delete>
+	
+	<select id="getCountByUid" parameterType="_int"
+		resultType="int">
+		SELECT count(*) FROM Rel where uid=#{uid}
+		</select>
+	
+	<select id="getTidByUid" parameterType="QueryVo"
+		resultType="int">
+		SELECT tid FROM Rel where uid=#{uid}
+		LIMIT #{start},#{size}
+	</select>
+	
+	<select id="findCountByUidAndTid" parameterType="Rel"
+		resultType="int">
+		SELECT count(*) FROM Rel where uid=#{uid} and tid=#{tid}
+	</select>
+	
+	<insert id="asceptTask" parameterType="Rel">
+		INSERT INTO Rel
+			(uid,
+			tid
+			)
+		VALUES(
+			#{uid},
+			#{tid})
+	</insert>
+</mapper>
